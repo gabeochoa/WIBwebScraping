@@ -15,11 +15,10 @@ import org.jsoup.select.Elements;
 public class GetPeople {
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args)
+	public static ArrayList<Person> main(String[] args)
 	{
 		
 		Document wibSite = null;
-		
 		
 		//Example of their website's person format
 		
@@ -63,13 +62,15 @@ public class GetPeople {
 
 		
 		
-		for(Person p: womenIB)
-		{
-			System.out.println(p.getName());
-			System.out.println(p.getPosition());
-			System.out.println(p.getPictureUrl());
-			System.out.println("\n");
-		}
+//		for(Person p: womenIB)
+//		{
+//			System.out.println(p.getName());
+//			System.out.println(p.getPosition());
+//			System.out.println(p.getPictureUrl());
+//			System.out.println("\n");
+//		}
+		
+		return womenIB;
 	}
 	
 	/*
