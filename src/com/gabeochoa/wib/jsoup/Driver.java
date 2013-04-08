@@ -1,14 +1,17 @@
 package com.gabeochoa.wib.jsoup;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Driver {
 
 	public static void main(String[] args)
 	{
 		DataGatherer da = new DataGatherer();
-		Scanner s = new Scanner(System.in);
+		
 		//ArrayList<String> aboutContent = da.getAbout();
 		
 		ArrayList<Person> members = da.getPeople();
@@ -20,11 +23,73 @@ public class Driver {
 			System.out.println("\n");
 		}
 		
-		//System.out.println("Hit Enter!");
-		s.nextLine();
+		ArrayList<FacebookPost> posts = da.getFacebookFeed();
 		
-		GetFacebookFeed.main(null);
+		for(FacebookPost fbP: posts)
+		{
+			System.out.print("\n");
+			System.out.print(fbP.getTitle());
+				for(String str: fbP.getContent())
+					System.out.print(str+" ");
+		}
 		
+		File file = null;
+		FileWriter fw;
+		BufferedWriter bw;
+		
+		
+		try {
+			 
+			file = new File("./text/peopleOutput.txt");
+ 
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+ 
+			fw = new FileWriter(file.getAbsoluteFile());
+			bw = new BufferedWriter(fw);
+			
+			for(Person p: members)
+			{
+				bw.write(p.getName()+"\n");
+				bw.write(p.getPosition()+"\n");
+				bw.write(p.getPictureUrl()+"\n");
+				bw.write("\n");
+			}
+					bw.close();
+ 
+			System.out.println("Done");
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			 
+			file = new File("./text/fbOutput.txt");
+ 
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+ 
+			fw = new FileWriter(file.getAbsoluteFile());
+			bw = new BufferedWriter(fw);
+			
+			for(FacebookPost fbP: posts)
+				{
+					bw.write("\n");
+					bw.write(fbP.getTitle());
+						for(String str: fbP.getContent())
+							bw.write(str+" ");
+				}
+					bw.close();
+ 
+			System.out.println("Done");
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

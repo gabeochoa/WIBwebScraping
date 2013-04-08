@@ -1,6 +1,7 @@
 package com.gabeochoa.wib.jsoup;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,8 +12,9 @@ import org.jsoup.select.Elements;
 public class GetFacebookFeed {
 
 	//http://www.facebook.com/feeds/page.php?format=atom10&id=249701551756902
+	
 	@SuppressWarnings("unused")
-	public static void main(String[] args)
+	public static ArrayList<FacebookPost> main(String[] args)
 	{
 		
 		Document wibSite = null;
@@ -25,12 +27,20 @@ public class GetFacebookFeed {
 			e.printStackTrace();
 		}
 				
+		ArrayList<FacebookPost> posts = new ArrayList<FacebookPost>();
+		
 		Elements entry = wibSite.select("entry");
 		
-		Elements titles = wibSite.select("title");
+		Elements titles = entry.select("title");
+		String[] fbTitles = new String[entry.size()];
+		for(int i=0; i<titles.size(); i++)
+		{
+			Element e = titles.get(i);
+			fbTitles[i] = e.text();
+		}
 		
-		Elements contents = wibSite.select("content[type^=html");
-		
+		Elements contents = entry.select("content[type^=html");
+		ArrayList<String[]> fbContent = new ArrayList<String[]>();
 		String w;
 		String words[];
 		
@@ -75,15 +85,17 @@ public class GetFacebookFeed {
 					}
 					words[i] = w;
 				}	
+				fbContent.add(words);
 			}
-			for(String s: words)
-			{
-				System.out.print(s+" ");
-			}
+			
 		}
-	
-	
-	
+
+		for(int i=0; i<titles.size(); i++)
+		{
+			posts.add(new FacebookPost(fbTitles[i],fbContent.get(i)));
+		}
+		
+		return posts;
 	}	
 	
 	

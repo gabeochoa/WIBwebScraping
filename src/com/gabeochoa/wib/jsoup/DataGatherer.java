@@ -11,12 +11,13 @@ import org.jsoup.select.Elements;
 
 public class DataGatherer {
 
-	public String rootURL = null;
-	public Document wibSite = null;
-	ArrayList<Person> members = null;
+	private String rootURL = null;
+	private Document wibSite = null;
+	private ArrayList<Person> members = null;
 	
-	ArrayList<String> facebookTitles = null;
-	ArrayList<String> facebookContent = null;
+	private ArrayList<String> facebookTitles = null;
+	private ArrayList<String> facebookContent = null;
+	private ArrayList<FacebookPost> posts;
 	
 	public DataGatherer()
 	{
@@ -53,9 +54,9 @@ public class DataGatherer {
 		return members;
 	}
 	
-	public ArrayList<String> getFacebookFeed()
+	public ArrayList<FacebookPost> getFacebookFeed()
 	{
-		//Still being worked on
-		return null;
+		posts = GetFacebookFeed.main(null);
+		return posts;
 	}
 }
