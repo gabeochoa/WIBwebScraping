@@ -18,6 +18,7 @@ public class DataGatherer {
 	private ArrayList<String> facebookTitles = null;
 	private ArrayList<String> facebookContent = null;
 	private ArrayList<FacebookPost> posts;
+	private ArrayList<Event> events;
 	
 	public DataGatherer()
 	{
@@ -58,5 +59,11 @@ public class DataGatherer {
 	{
 		posts = GetFacebookFeed.main(null);
 		return posts;
+	}
+	
+	public ArrayList<Event> getEvents()
+	{
+		events = GetCalendar.get();
+		return events;
 	}
 }

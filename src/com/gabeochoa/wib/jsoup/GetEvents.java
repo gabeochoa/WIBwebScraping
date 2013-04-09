@@ -1,4 +1,4 @@
-package sample.calendar;
+package com.gabeochoa.wib.jsoup;
 
 import java.io.IOException;
 
