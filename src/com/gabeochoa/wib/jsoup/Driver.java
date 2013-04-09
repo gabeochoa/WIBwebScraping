@@ -33,6 +33,13 @@ public class Driver {
 					System.out.print(str+" ");
 		}
 		
+		ArrayList<Event> futureEvents = da.getEvents();
+		for(Event e: futureEvents)
+		{
+			System.out.println(e.getTitle());
+			System.out.println(e.getContent());
+		}
+		
 		File file = null;
 		FileWriter fw;
 		BufferedWriter bw;
@@ -64,6 +71,7 @@ public class Driver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		try {
 			 
 			file = new File("./text/fbOutput.txt");
@@ -90,6 +98,34 @@ public class Driver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			 
+			file = new File("./text/CalendarOutput.txt");
+ 
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+ 
+			fw = new FileWriter(file.getAbsoluteFile());
+			bw = new BufferedWriter(fw);
+			
+			for(Event e: futureEvents)
+			{
+				bw.write("\n");
+				bw.write(e.getTitle());
+				bw.write(e.getContent());
+			}
+			
+					bw.close();
+ 
+			System.out.println("Done");
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
